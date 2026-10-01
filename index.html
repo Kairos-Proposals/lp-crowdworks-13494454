@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案 | 生成AIを活用したAI接客の導入・運用支援</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0B132B;
+    --navy:#1C2541;
+    --slate:#3A506B;
+    --teal:#5BC0BE;
+    --gold:#E8DAB2;
+    --paper:#F8F7F3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    background:var(--paper);
+    color:var(--navy-deep);
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.mincho{
+    font-family:'Shippori Mincho', serif;
+  }
+  a{text-decoration:none;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(91,192,190,0.18), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(232,218,178,0.12), transparent 50%),
+      linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, var(--slate) 100%);
+    color:var(--paper);
+    padding:110px 0 90px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(248,247,243,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248,247,243,0.04) 1px, transparent 1px);
+    background-size:42px 42px;
+    pointer-events:none;
+  }
+  .badge{
+    display:inline-block;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    padding:7px 18px;
+    border:1px solid rgba(232,218,178,0.5);
+    border-radius:30px;
+    color:var(--gold);
+    margin-bottom:28px;
+    position:relative;
+    z-index:2;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4.6vw, 3.4rem);
+    font-weight:700;
+    letter-spacing:0.04em;
+    line-height:1.5;
+    position:relative;
+    z-index:2;
+    margin-bottom:22px;
+  }
+  .hero h1 span{
+    color:var(--teal);
+  }
+  .hero p.lead{
+    position:relative;
+    z-index:2;
+    max-width:560px;
+    font-size:1rem;
+    color:rgba(248,247,243,0.85);
+    margin-bottom:46px;
+  }
+  .chat-stage{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    max-width:560px;
+  }
+  .bubble{
+    padding:16px 22px;
+    border-radius:18px;
+    font-size:0.92rem;
+    max-width:80%;
+    animation:fadeUp .8s ease both;
+  }
+  .bubble.user{
+    align-self:flex-end;
+    background:rgba(248,247,243,0.1);
+    border:1px solid rgba(248,247,243,0.25);
+    border-bottom-right-radius:4px;
+    color:var(--paper);
+  }
+  .bubble.ai{
+    align-self:flex-start;
+    background:linear-gradient(135deg, var(--teal), #3a9c9a);
+    color:var(--navy-deep);
+    border-bottom-left-radius:4px;
+    font-weight:500;
+  }
+  .bubble.ai .tag{
+    display:block;
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    opacity:0.7;
+    margin-bottom:4px;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(12px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ===== SECTION 共通 ===== */
+  section{
+    padding:86px 0;
+  }
+  .section-tag{
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    color:var(--slate);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(1.5rem, 3vw, 2.2rem);
+    font-weight:700;
+    margin-bottom:34px;
+    color:var(--navy-deep);
+  }
+
+  /* ===== 理解セクション ===== */
+  .understand{
+    background:var(--paper);
+    position:relative;
+  }
+  .understand-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:start;
+  }
+  .understand-quote{
+    background:var(--navy-deep);
+    color:var(--paper);
+    padding:38px 34px;
+    border-radius:4px;
+    position:relative;
+  }
+  .understand-quote::before{
+    content:"”";
+    position:absolute;
+    top:-6px;
+    left:20px;
+    font-size:5rem;
+    color:var(--teal);
+    font-family:'Shippori Mincho', serif;
+    opacity:0.5;
+  }
+  .understand-quote p{
+    font-family:'Shippori Mincho', serif;
+    font-size:1.15rem;
+    line-height:2;
+    position:relative;
+    z-index:1;
+  }
+  .understand-text p{
+    margin-bottom:18px;
+    color:var(--slate);
+    font-size:0.96rem;
+  }
+  .understand-text strong{
+    color:var(--navy-deep);
+    font-weight:700;
+  }
+
+  /* ===== 価値セクション ===== */
+  .value{
+    background:linear-gradient(180deg, var(--navy-deep), var(--navy));
+    color:var(--paper);
+  }
+  .value .section-tag{color:var(--teal);}
+  .value .section-title{color:var(--paper);}
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:22px;
+  }
+  .card{
+    background:rgba(248,247,243,0.05);
+    border:1px solid rgba(248,247,243,0.1);
+    border-radius:10px;
+    padding:30px 24px;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--teal);
+  }
+  .card .num{
+    font-family:'Shippori Mincho', serif;
+    font-size:1.7rem;
+    color:var(--teal);
+    margin-bottom:16px;
+    display:block;
+  }
+  .card h3{
+    font-size:1.05rem;
+    margin-bottom:12px;
+    line-height:1.6;
+  }
+  .card p{
+    font-size:0.86rem;
+    color:rgba(248,247,243,0.72);
+  }
+
+  /* ===== スケジュール ===== */
+  .flow{
+    background:var(--paper);
+  }
+  .timeline{
+    position:relative;
+    padding-left:36px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:9px;
+    top:6px;
+    bottom:6px;
+    width:2px;
+    background:linear-gradient(var(--teal), var(--slate));
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:40px;
+  }
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";
+    position:absolute;
+    left:-36px;
+    top:4px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:var(--paper);
+    border:3px solid var(--teal);
+  }
+  .tl-item .step{
+    font-size:0.76rem;
+    letter-spacing:0.14em;
+    color:var(--teal);
+    margin-bottom:6px;
+    font-weight:700;
+  }
+  .tl-item h3{
+    font-size:1.1rem;
+    margin-bottom:8px;
+    color:var(--navy-deep);
+  }
+  .tl-item p{
+    font-size:0.9rem;
+    color:var(--slate);
+    max-width:620px;
+  }
+
+  /* ===== クロージング ===== */
+  .closing{
+    background:
+      radial-gradient(circle at 80% 30%, rgba(91,192,190,0.25), transparent 55%),
+      linear-gradient(135deg, var(--navy-deep), var(--navy));
+    color:var(--paper);
+    text-align:center;
+    padding:100px 0;
+  }
+  .closing h2{
+    font-size:clamp(1.6rem,3.6vw,2.4rem);
+    margin-bottom:20px;
+  }
+  .closing p{
+    color:rgba(248,247,243,0.78);
+    max-width:520px;
+    margin:0 auto 38px;
+    font-size:0.95rem;
+  }
+  .cta-btn{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy-deep);
+    font-weight:700;
+    padding:16px 46px;
+    border-radius:40px;
+    font-size:0.98rem;
+    letter-spacing:0.05em;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 10px 30px rgba(232,218,178,0.25);
+  }
+  .cta-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(232,218,178,0.35);
+  }
+  .meta-row{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:50px;
+    flex-wrap:wrap;
+  }
+  .meta-row div{
+    font-size:0.78rem;
+    color:rgba(248,247,243,0.6);
+    letter-spacing:0.08em;
+  }
+  .meta-row strong{
+    display:block;
+    font-size:1.1rem;
+    color:var(--teal);
+    font-family:'Shippori Mincho', serif;
+    margin-top:4px;
+  }
+  footer{
+    background:var(--navy-deep);
+    text-align:center;
+    padding:26px 0;
+    color:rgba(248,247,243,0.4);
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+  }
+
+  @media (max-width:860px){
+    .understand-grid{grid-template-columns:1fr;}
+    .cards{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:560px){
+    .cards{grid-template-columns:1fr;}
+    .hero{padding:90px 0 70px;}
+    section{padding:64px 0;}
+    .meta-row{gap:24px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">PROPOSAL FROM KAIROS</span>
+    <h1>接客は、会話になる。<br><span>「売る」から「対話する」ECへ。</span></h1>
+    <p class="lead">仕様はまだ白紙。だからこそ、設計の一行目からご一緒したい案件です。Kairosが、AI接客の立ち上げから運用改善までを伴走します。</p>
+
+    <div class="chat-stage">
+      <div class="bubble user">このジャケット、普段使いもできますか？</div>
+      <div class="bubble ai"><span class="tag">AI接客</span>はい、お手持ちのデニムとも好相性です。あわせて同系色のスニーカーもご覧になりますか？</div>
+    </div>
+  </div>
+</header>
+
+<section class="understand">
+  <div class="wrap">
+    <div class="section-tag">UNDERSTANDING</div>
+    <h2 class="section-title">この募集を、どう読んだか。</h2>
+    <div class="understand-grid">
+      <div class="understand-quote">
+        <p>「仕様は未定。でも、大手での実装・運用経験は必須。」<br>— それは、丸投げできる相手ではなく、<br>一緒に仕様をつくれる相手を探している、ということだと受け取りました。</p>
+      </div>
+      <div class="understand-text">
+        <p><strong>AI接客は、ツール導入では終わりません。</strong>どんな質問が来て、どう答え、どこで商品棚につなげるか——設計そのものが商品体験になります。</p>
+        <p>ご提示の予算感・スケジュール感から、まずは<strong>小さく正しく動くAI接客</strong>を形にし、運用データを見ながら育てていくアプローチが合うと考えています。</p>
+        <p>「仕様が決まってから」ではなく、「仕様を決めるところから」。それがKairosの関わり方です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="value">
+  <div class="wrap">
+    <div class="section-tag">WHAT KAIROS BRINGS</div>
+    <h2 class="section-title">Kairosが提供できること</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>接客シナリオ設計</h3>
+        <p>商品特性・購入動線を踏まえ、「何を聞かれ、どう提案するか」の会話設計から着手します。</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>大手EC導入・運用実績</h3>
+        <p>生成AIを用いた接客機能の実装から本番運用、改善サイクルまでを一貫して担った経験を活かします。</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>商品データ連携設計</h3>
+        <p>既存の商品マスタ・在庫・条件情報をAIが扱える形に整理し、誤案内のリスクを抑えます。</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>導入後の継続改善</h3>
+        <p>会話ログを分析し、離脱ポイントや誤回答を定期的にチューニングする運用体制まで設計します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow">
+  <div class="wrap">
+    <div class="section-tag">PROCESS</div>
+    <h2 class="section-title">進め方のイメージ</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="step">STEP 01</div>
+        <h3>要件すり合わせ・接客方針の言語化</h3>
+        <p>想定されるお客様の質問パターン、提案したい商品軸、トーン＆マナーをヒアリングし、仕様のたたき台を作成します。</p>
+      </div>
+      <div class="tl-item">
+        <div class="step">STEP 02</div>
+        <h3>AI接客設計・プロトタイプ構築</h3>
+        <p>生成AIの応答ロジックと商品データ連携を設計し、実際の会話フローで動作確認できる状態まで組み上げます。</p>
+      </div>
+      <div class="tl-item">
+        <div class="step">STEP 03</div>
+        <h3>ECサイトへの実装・導入</h3>
+        <p>既存サイトへの組み込み、表示まわりの調整、想定シナリオでのテストを行い、本番公開まで支援します。</p>
+      </div>
+      <div class="tl-item">
+        <div class="step">STEP 04</div>
+        <h3>運用・継続改善</h3>
+        <p>公開後の会話ログをもとに応答精度を見直し、季節商材や新商品にあわせたチューニングを継続的に行います。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2 class="mincho">まずは、小さな会話から始めませんか。</h2>
+    <p>仕様が固まっていない今だからこそ、設計のご相談からお気軽にお声がけください。実績・ポートフォリオもあわせてご提示いたします。</p>
+    <a href="#" class="cta-btn">Kairosに相談してみる</a>
+    <div class="meta-row">
+      <div>想定予算<strong>¥250,000〜300,000</strong></div>
+      <div>対応範囲<strong>設計〜運用改善</strong></div>
+      <div>体制<strong>専任伴走</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  KAIROS — Web制作・システム開発チーム
+</footer>
+
+</body>
+</html>
